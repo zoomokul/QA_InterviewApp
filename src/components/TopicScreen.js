@@ -1,7 +1,8 @@
 import React from 'react';
 import { View, Text, StyleSheet,ScrollView } from 'react-native';
 import { topics } from '../data/questions'; // Import the questions and answers from questions.js
-
+import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
+const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-9981135393846597/1078013103';
 const TopicScreen = ({ route }) => {
   const { topic } = route.params;
   const topicData = topics[topic] || [];
@@ -9,6 +10,13 @@ const TopicScreen = ({ route }) => {
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.topicTitle}>{topic}</Text>
+      <BannerAd
+      unitId={adUnitId}
+      size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+      requestOptions={{
+        requestNonPersonalizedAdsOnly: true,
+      }}
+    />
       {topicData.map((item, index) => (
         <View key={index} style={styles.questionContainer}>
           <Text style={styles.questionText}>{item.question}</Text>
